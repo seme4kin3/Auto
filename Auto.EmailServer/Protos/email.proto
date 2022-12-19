@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "Auto.EmailServer";
+
+package email;
+
+// The greeting service definition.
+service Emailer {
+  // Sends a greeting
+  rpc GetEmail (EmailRequest) returns (EmailReply);
+}
+
+// The request message containing the user's name.
+message EmailRequest {
+  string numberAd = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string vehicleCode = 4;
+}
+
+// The response message containing the greetings.
+message EmailReply {
+  string email = 1;
+}
