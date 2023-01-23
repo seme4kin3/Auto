@@ -1,7 +1,6 @@
 ﻿using Auto.Messages;
 using EasyNetQ;
 using Microsoft.AspNetCore.SignalR.Client;
-using System.Runtime.ConstrainedExecution;
 using System.Text.Json;
 
 public class Program
@@ -20,7 +19,7 @@ public class Program
         await hub.StartAsync();
         Console.WriteLine("Hub started!");
         Console.WriteLine("Press any key...");
-        
+
         Console.WriteLine("Connected to bus! Listening newOwnerMessage");
         var subscriberId = $"Auto.Website@{Environment.MachineName}";
         await bus.PubSub.SubscribeAsync<NewOwnerEmailMessage>(subscriberId, HandleNewOwnerMessage);
@@ -30,9 +29,9 @@ public class Program
     private static async void HandleNewOwnerMessage(NewOwnerEmailMessage noem)
     {
         var csvRow =
-            $" {noem.Email} : {noem.NumberAd}, {noem.FirstName}, {noem.LastName} ";
+            $" {noem.Email} {noem.Country}: {noem.NumberAd}, {noem.FirstName}, {noem.LastName} ";
         Console.WriteLine(csvRow);
-        var json = System.Text.Json.JsonSerializer.Serialize(noem,JsonSettings());
+        var json = System.Text.Json.JsonSerializer.Serialize(noem, JsonSettings());
         await hub.SendAsync("NotifyWebUsers", "Auto.Website", json);
     }
 

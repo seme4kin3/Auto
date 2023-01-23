@@ -6,7 +6,7 @@ function displayNotification(user, json) {
     var data = JSON.parse(json);
 
     var message =
-        `NEW ONWER! <a href="/owner/details/${data.id}">${data.id}</a> (${data.name} ${data.surname}, 
+        `NEW ONWER! ${data.numberAd} ${data.email} (${data.firstName} ${data.lastName}, 
             ${data.vehicleCode}, ${data.email}).`;
 
     var $div = $(`<div>${message}</div>`);

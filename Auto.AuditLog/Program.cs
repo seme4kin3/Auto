@@ -1,5 +1,6 @@
 ﻿using Auto.Messages;
 using EasyNetQ;
+using Grpc.Net.Client;
 using Microsoft.Extensions.Configuration;
 
 namespace Auto.AuditLog
@@ -17,6 +18,7 @@ namespace Auto.AuditLog
             Console.WriteLine("Connected! Listening for NewVehicleMessage, NewOwnerMessage messages.");
             await bus.PubSub.SubscribeAsync<NewVehicleMessage>(SUBSCRIBER_ID, HandleNewVehicleMessage);
             await bus.PubSub.SubscribeAsync<NewOwnerMessage>(SUBSCRIBER_ID, HandleNewOwnerMessage);
+
             Console.ReadKey(true);
         }
 
